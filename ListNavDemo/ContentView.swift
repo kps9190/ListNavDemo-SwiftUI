@@ -8,14 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var carStore : CarStore = CarStore(cars: carData)
+    
     var body: some View {
+        
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("자동차 종류")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding()
+            
+            List {
+                ForEach (0..<carStore.cars.count, id: \.self) { i in
+                    ListCell(car: carStore.cars[i])
+                }
+            }
         }
-        .padding()
+    }
+}
+
+struct ListCell: View {
+    var car: Car
+    
+    var body: some View {
+        HStack {
+            Image(car.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 100, height: 60)
+            Text(car.name)
+        }
     }
 }
 
