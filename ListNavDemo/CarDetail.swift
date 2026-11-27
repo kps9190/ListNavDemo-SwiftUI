@@ -36,9 +36,10 @@ struct CarDetail: View {
             }
         }
     }
-    
+   
     struct carDetail_Previews: PreviewProvider {
         static var previews: some View {
+//            교재에 오타로 CarDetails라고 나왔었음. 
             CarDetail(selectedCar: carData[0])
         }
     }

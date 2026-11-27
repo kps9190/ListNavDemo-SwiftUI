@@ -12,16 +12,23 @@ struct ContentView: View {
     @StateObject var carStore : CarStore = CarStore(cars: carData)
     
     var body: some View {
-        
-        VStack {
-            Text("자동차 종류")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding()
+        NavigationStack {
             
-            List {
-                ForEach (0..<carStore.cars.count, id: \.self) { i in
-                    ListCell(car: carStore.cars[i])
+            VStack {
+                Text("자동차 종류")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding()
+                
+                List {
+                    ForEach (0..<carStore.cars.count, id: \.self) { i in
+                        NavigationLink(value: i) {
+                            ListCell(car: carStore.cars[i])
+                        }
+                    }
+                }
+                .navigationDestination(for: Int.self) {
+                    i in CarDetail(selectedCar: carStore.cars[i])
                 }
             }
         }
