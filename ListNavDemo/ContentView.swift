@@ -22,6 +22,8 @@ struct ContentView: View {
                             ListCell(car: carStore.cars[i])
                         }
                     }
+                    .onDelete(perform: deleteItems)
+                    .onMove(perform: moveItems)
                 }
                 .navigationDestination(for: Int.self) {
                     i in CarDetail(selectedCar: carStore.cars[i])
@@ -36,7 +38,15 @@ struct ContentView: View {
             }
         }
     }
-}
+        
+        func deleteItems(at offsets: IndexSet) {
+            carStore.cars.remove(atOffsets: offsets)
+        }
+        
+        func moveItems(from source: IndexSet, to destination: Int) {
+            carStore.cars.move(fromOffsets: source, toOffset: destination)
+        }
+    }
 
 
 struct ListCell: View {
