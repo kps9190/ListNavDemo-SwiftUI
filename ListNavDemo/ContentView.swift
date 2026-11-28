@@ -10,16 +10,12 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var carStore : CarStore = CarStore(cars: carData)
+    @State private var stachPath = NavigationPath()
     
     var body: some View {
         NavigationStack {
             
             VStack {
-                Text("자동차 종류")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding()
-                
                 List {
                     ForEach (0..<carStore.cars.count, id: \.self) { i in
                         NavigationLink(value: i) {
@@ -30,7 +26,7 @@ struct ContentView: View {
                 .navigationDestination(for: Int.self) {
                     i in CarDetail(selectedCar: carStore.cars[i])
                 }
-                .navigationDestination(for: String.self) { _ in AddNewCar(carStore: self.carStore)
+                .navigationDestination(for: String.self) { _ in AddNewCar(carStore: self.carStore, path: $stachPath)
                 }
                 .navigationBarTitle(Text("전기차"))
                 .navigationBarItems(leading: NavigationLink(value: "차량 추가") {

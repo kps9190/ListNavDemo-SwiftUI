@@ -11,6 +11,7 @@ import SwiftUI
 struct AddNewCar: View {
     
     @StateObject var carStore : CarStore
+    @Binding var path: NavigationPath
     @State private var isHybrid = false
     @State private var name: String = ""
     @State private var description: String = ""
@@ -46,6 +47,7 @@ struct AddNewCar: View {
                          isHybrid: isHybrid,
                          imageName: "tesla_model_3")
         carStore.cars.append(newCar)
+        path.removeLast()
     }
     
 
@@ -67,8 +69,9 @@ struct AddNewCar: View {
     }
 }
 
-struct AddNewCar_Preview: PreviewProvider {
-    static var previews: some View {
-        AddNewCar(carStore: CarStore(cars: carData))
-    }
-}
+// 탐색 뷰 전달이라 더 이상 필요가 없음
+//struct AddNewCar_Preview: PreviewProvider {
+//    static var previews: some View {
+//        AddNewCar(carStore: CarStore(cars: carData))
+//    }
+//}
