@@ -30,10 +30,18 @@ struct ContentView: View {
                 .navigationDestination(for: Int.self) {
                     i in CarDetail(selectedCar: carStore.cars[i])
                 }
+                .navigationDestination(for: String.self) { _ in AddNewCar(carStore: self.carStore)
+                }
+                .navigationBarTitle(Text("전기차"))
+                .navigationBarItems(leading: NavigationLink(value: "차량 추가") {
+                    Text("추가")
+                        .foregroundColor(.blue)
+                }, trailing: EditButton())
             }
         }
     }
 }
+
 
 struct ListCell: View {
     var car: Car
